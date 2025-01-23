@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Service
-@Profile("emaill")
+@Profile("email")
 @RequiredArgsConstructor
 public class EmailAuthService {
     private final Utils utils;
