@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: email-service
+
+  cloud:
+    config:
+      uri: ${config.server}
+
+  data:
+    redis:
+      host: ${redis.host:localhost}  # Redis 호스트 기본값 설정
+      port: ${redis.port:6379}       # Redis 포트 기본값 설정
+eureka:
+  instance:
+    hostname: ${hostname}
+    
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${eureka.server}/eureka/
