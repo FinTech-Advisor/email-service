@@ -37,7 +37,7 @@ public class EmailController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "이메일 인증 코드 검증")
+    @Operation(summary = "이메일 인증 코드 검증.")
     @ApiResponse(responseCode = "204", description = "인증 코드 검증 성공")
     @Parameters({
             @Parameter(name = "authCode", description = "검증할 인증 코드", required = false, in = ParameterIn.QUERY) // in 속성 추가
@@ -47,8 +47,8 @@ public class EmailController {
         authService.verify(authCode);
     }
 
-    @Operation(summary = "이메일 발송")
-    @ApiResponse(responseCode = "200", description = "이메일 발송 성공")
+    @Operation(summary = "이메일 발송.")
+    @ApiResponse(responseCode = "200", description = "이메일 발송 성공.")
     @Parameters({
             @Parameter(name = "tpl", description = "이메일 템플릿 이름", required = false, in = ParameterIn.PATH), // in 속성 추가
             @Parameter(name="file", description = "업로드 파일, 복수개 전송 가능", required = false) //in 속성 추가
