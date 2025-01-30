@@ -24,7 +24,7 @@ public class EmailController {
     private final EmailService emailService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "이메일 인증코드 발송")
+    @Operation(summary = "이메일 인증코드 발송.")
     @ApiResponse(responseCode = "204", description = "인증 코드 발송 성공")
     @Parameters({
             @Parameter(name = "to", description = "인증 코드를 발송할 이메일 주소", required = true, in = ParameterIn.PATH) // in 속성 추가
@@ -37,7 +37,7 @@ public class EmailController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "이메일 인증 코드 검증")
+    @Operation(summary = "이메일 인증 코드 검증.")
     @ApiResponse(responseCode = "204", description = "인증 코드 검증 성공")
     @Parameters({
             @Parameter(name = "authCode", description = "검증할 인증 코드", required = false, in = ParameterIn.QUERY) // in 속성 추가
