@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{Email.reset.title}">이메일 초기화</title>
+</head>
+<body>
+<p th:text="#{Email.reset.greeting}">안녕하세요,</p>
+<p th:text="#{Email.reset.instruction}">비밀번호를 재설정하려면 아래 링크를 클릭하세요:</p>
+<p>
+    <a th:href="${resetUrl}" th:text="#{Email.reset.linkText}">비밀번호 재설정</a>
+</p>
+<p th:text="#{Email.reset.expiration}">이 링크는 1시간 동안 유효합니다.</p>
+</body>
+</html>
