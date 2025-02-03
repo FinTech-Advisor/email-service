@@ -15,6 +15,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @SpringBootTest
 @ActiveProfiles({"default", "test", "email"})
@@ -65,6 +66,13 @@ public class EmailSendTest {
         Map<String, Object> tplData = new HashMap<>();
         tplData.put("key1", "값1");
         tplData.put("key2", "값2");
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            sb.append((int) (Math.random() * 10)); // 0~9 사이의 랜덤 정수 생성
+        }
+        String authCode = sb.toString();
+        tplData.put("authCode", authCode);
 
         boolean result = service.sendEmail(form, "auth", tplData);
         System.out.println(result);
