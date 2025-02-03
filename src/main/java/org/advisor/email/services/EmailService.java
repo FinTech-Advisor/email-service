@@ -3,8 +3,9 @@ package org.advisor.email.services;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.advisor.email.controllers.RequestEmail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.Objects;
 public class EmailService {
     private final JavaMailSender javaMailSender;
     private final SpringTemplateEngine templateEngine;
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     public boolean sendEmail(RequestEmail form, String tpl, Map<String, Object> tplData) {
 
@@ -72,16 +74,16 @@ public class EmailService {
             }
             // 파일 첨부 처리 E
 
+            logger.info("Sending email: to={}, subject={}", to, subject); // 받는 사람, 제목 로그 출력
+            logger.info("Email message: {}", message); // message 객체 로그 출력
             javaMailSender.send(message);
 
             return true;
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("이메일 발송 실패", e); // 예외 정보 로그 출력
+            return false;
         }
-
-        return false;
     }
-
     public boolean sendEmail(RequestEmail form, String tpl) {
         return sendEmail(form, tpl, form.getData());
     }
