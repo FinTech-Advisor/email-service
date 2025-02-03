@@ -201,4 +201,10 @@ public class Utils {
 
         return data == null ? null : (T) data.getValue();
     }
+    public void removeValue(String code) {
+        CodeValue data = codeValueRepository.findByCode(code);
+        if (data != null) {
+            codeValueRepository.delete(data);
+        }
+    }
 }

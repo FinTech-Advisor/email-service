@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.advisor.email.exceptions.AuthCodeIssueException;
 import org.advisor.email.services.EmailAuthService;
+import org.advisor.email.services.EmailResetService;
 import org.advisor.email.services.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -22,9 +23,10 @@ import java.util.List;
 public class EmailController {
     private final EmailAuthService authService;
     private final EmailService emailService;
+    private final EmailResetService ResetService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "이메일 인증코드 발송")
+    @Operation(summary = "이메일 인증코드 발송.")
     @ApiResponse(responseCode = "204", description = "인증 코드 발송 성공")
     @Parameters({
             @Parameter(name = "to", description = "인증 코드를 발송할 이메일 주소", required = true, in = ParameterIn.PATH) // in 속성 추가
@@ -37,7 +39,7 @@ public class EmailController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "이메일 인증 코드 검증")
+    @Operation(summary = "이메일 인증 코드 검증.")
     @ApiResponse(responseCode = "204", description = "인증 코드 검증 성공")
     @Parameters({
             @Parameter(name = "authCode", description = "검증할 인증 코드", required = false, in = ParameterIn.QUERY) // in 속성 추가
@@ -58,6 +60,17 @@ public class EmailController {
         form.setFiles(files);
         tpl = StringUtils.hasText(tpl) ? tpl : "general";
         emailService.sendEmail(form, tpl);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "비밀번호 초기화 확인") // 요약 수정
+    @ApiResponse(responseCode = "204", description = "비밀번호 초기화 확인 성공")
+    @Parameters({
+            @Parameter(name = "token", description = "비밀번호 초기화 토큰", required = true, in = ParameterIn.QUERY) // 파라미터 설명 수정
+    })
+    @GetMapping("/reset-password/verify") // URL 및 메서드 이름 수정
+    public void verifyPasswordReset(@RequestParam("token") String token) {
+        ResetService.confirmResetEmail(token);
     }
 
 
