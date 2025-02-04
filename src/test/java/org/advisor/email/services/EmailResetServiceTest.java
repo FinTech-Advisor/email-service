@@ -24,7 +24,7 @@ class EmailResetServiceTest {
     @Autowired // @MockBean 제거 후 @Autowired로 변경
     private EmailService emailService;
 
-    @MockBean
+    @Autowired
     private Utils utils;
 
     @Autowired
